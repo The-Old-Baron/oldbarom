@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from './Core/Home/Home';
 import NotFound from './errors/NotFound';
 import './App.css';
-
+import './css/theme.css';
 function App() {
   return (
     <Router>
@@ -10,7 +10,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route component={NotFound} />
-
         </Routes>
       </div>
     </Router>
