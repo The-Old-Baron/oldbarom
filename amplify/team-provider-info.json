@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-oldbarom-dev-df683-authRole",
+      "UnauthRoleArn": "arn:aws:iam::905418066465:role/amplify-oldbarom-dev-df683-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::905418066465:role/amplify-oldbarom-dev-df683-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-oldbarom-dev-df683-deployment",
+      "UnauthRoleName": "amplify-oldbarom-dev-df683-unauthRole",
+      "StackName": "amplify-oldbarom-dev-df683",
+      "StackId": "arn:aws:cloudformation:us-east-2:905418066465:stack/amplify-oldbarom-dev-df683/d36e9ac0-4de7-11ef-9797-0a10dccd03a5",
+      "AmplifyAppId": "dnqxzmrl07bux"
+    }
+  }
+}
