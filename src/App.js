@@ -1,14 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import { Route } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from './Core/Home/Home';
+import NotFound from './errors/NotFound';
+import './App.css';
 
 function App() {
   return (
-    <div>
-      <Route path="/" component={Home} />
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route component={NotFound} />
+
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
