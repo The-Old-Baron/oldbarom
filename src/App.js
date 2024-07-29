@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NotFound from './errors/NotFound';
 
 import ApplicationHome from './Pages/Aplication/Home/Home';
+import ApplicationLogin from './Pages/Aplication/Login/Login';
 
 import Home from './Pages/Home/index';
 
@@ -12,8 +13,9 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route path="aplications/" element={<ApplicationHome />} />
           <Route path="/" element={<Home />} />
+          <Route path="aplications/" element={<ApplicationHome />} />
+          <Route path="/login" element={<ApplicationLogin />} />
           <Route component={NotFound} />
         </Routes>
       </div>
