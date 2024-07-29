@@ -1,7 +1,7 @@
 import React from 'react';
-import TopMenu from '../../components/TopMenu/MenuSuperior';
-import Footer from '../../components/Footer/Footer';
-import Loading from '../../components/Loading/Loading';
+import TopMenu from '../../../components/TopMenu/MenuSuperior';
+import Footer from '../../../components/Footer/Footer';
+import Loading from '../../../components/Loading/Loading';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
