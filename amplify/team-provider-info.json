@@ -10,6 +10,12 @@
       "StackName": "amplify-oldbarom-dev-df683",
       "StackId": "arn:aws:cloudformation:us-east-2:905418066465:stack/amplify-oldbarom-dev-df683/d36e9ac0-4de7-11ef-9797-0a10dccd03a5",
       "AmplifyAppId": "dnqxzmrl07bux"
+    },
+    "categories": {
+      "auth": {
+        "oldbarome209d2b3": {},
+        "userPoolGroups": {}
+      }
     }
   }
 }
