@@ -27,7 +27,7 @@ function App() {
         <Routes childProps={childProps}>
           <Route path="/" element={<Home />} />
           <Route path="aplications/" element={<ApplicationHome />} />
-          <Route path="/login" element={<ApplicationLogin />} />
+          <Route path="/login" element={<ApplicationLogin userHasAuthenticated={userHasAuthenticated}/>}  />
           <Route component={NotFound} />
         </Routes>
       </div>

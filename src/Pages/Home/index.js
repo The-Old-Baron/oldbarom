@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Menu from '../../components/TopMenu/MenuSuperior'
+import MenuSuperior from '../../components/TopMenu/MenuSuperior'
 import Loading from '../../components/Loading/Loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -43,7 +43,7 @@ const Index = () => {
     <div>
       <Loading />
       <div className="page-wrapper">
-        <Menu />
+        <MenuSuperior />
         <div className="position-relative pt-5">
           <div
             className="position-absolute top-0 start-0 w-100 bg-position-bottom-center bg-size-cover bg-repeat-0"

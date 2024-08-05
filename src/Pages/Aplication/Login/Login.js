@@ -240,6 +240,9 @@ const formFields = {
   },
 };
 export default class Login extends Component {
+  static propTypes = {
+    userHasAuthenticated: PropTypes.func.isRequired,
+  };
 
     constructor(props) {
         super(props);
@@ -290,6 +293,7 @@ export default class Login extends Component {
         }
         return (
           <div>
+            
             <Loading />
             <div className="page-wrapper">
               <section className="position-relative h-100 pt-3">
@@ -302,9 +306,14 @@ export default class Login extends Component {
                       Don’t have an account yet?{" "}
                       <a href="account-signup.html">Register here.</a>
                     </p>
-                    <Authenticator formFields={formFields} >
-                      {({ signOut }) => this.props.userHasAuthenticated(true)}
-                    </Authenticator>
+                    <Authenticator >
+              {({ signOut, user }) => (
+                <main>
+                  <Heading level={1}>Hello {user.username}</Heading>
+                  <Button onClick={signOut}>Sign out</Button>
+                </main>
+              )}
+            </Authenticator>
                     <a href="" className="btn btn-link btn-lg w-100">
                       Forgot your password?
                     </a>
@@ -348,7 +357,7 @@ export default class Login extends Component {
             </div>
             <div style={{ display: "none" }}>
               <TemeSwitcher />
-            </div>
+            </div> 
           </div>
         );
     }
