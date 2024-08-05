@@ -7182,36 +7182,36 @@
       if (value.dataset.swiperOptions != undefined) userOptions = JSON.parse(value.dataset.swiperOptions);
 
       // Pager
-      if (userOptions.pager) {
-        pagerOptions = {
-          pagination: {
-            el: '.pagination .list-unstyled',
-            clickable: true,
-            bulletActiveClass: 'active',
-            bulletClass: 'page-item',
-            renderBullet: function (index, className) {
-              return '<li class="' + className + '"><a href="#" class="page-link btn-icon btn-sm">' + (index + 1) + '</a></li>';
-            }
-          }
-        };
-      }
+    //   if (userOptions.pager) {
+    //     pagerOptions = {
+    //       pagination: {
+    //         el: '.pagination .list-unstyled',
+    //         clickable: true,
+    //         bulletActiveClass: 'active',
+    //         bulletClass: 'page-item',
+    //         renderBullet: function (index, className) {
+    //           return '<li class="' + className + '"><a href="#" class="page-link btn-icon btn-sm">' + (index + 1) + '</a></li>';
+    //         }
+    //       }
+    //     };
+    //   }
 
       // Slider init
       const options = {
         ...userOptions,
         ...pagerOptions
       };
-      const swiper = new Swiper(value, options); // eslint-disable-line no-undef
+      //const swiper = new Swiper(value, options); // eslint-disable-line no-undef
 
       // Tabs (linked content)
-      if (userOptions.tabs) {
-        swiper.on('activeIndexChange', e => {
-          let targetTab = document.querySelector(e.slides[e.activeIndex].dataset.swiperTab),
-            previousTab = document.querySelector(e.slides[e.previousIndex].dataset.swiperTab);
-          previousTab.classList.remove('active');
-          targetTab.classList.add('active');
-        });
-      }
+    //   if (userOptions.tabs) {
+    //     swiper.on('activeIndexChange', e => {
+    //       let targetTab = document.querySelector(e.slides[e.activeIndex].dataset.swiperTab),
+    //         previousTab = document.querySelector(e.slides[e.previousIndex].dataset.swiperTab);
+    //       previousTab.classList.remove('active');
+    //       targetTab.classList.add('active');
+    //     });
+    //   }
     });
   })();
 
@@ -7436,22 +7436,22 @@
     if (button.length) {
       for (let i = 0; i < button.length; i++) {
         /* eslint-disable no-undef */
-        lightGallery(button[i], {
-          selector: 'this',
-          plugins: [lgVideo],
-          licenseKey: 'D4194FDD-48924833-A54AECA3-D6F8E646',
-          download: false,
-          youtubePlayerParams: {
-            modestbranding: 1,
-            showinfo: 0,
-            rel: 0
-          },
-          vimeoPlayerParams: {
-            byline: 0,
-            portrait: 0,
-            color: '6366f1'
-          }
-        });
+        // lightGallery(button[i], {
+        //   selector: 'this',
+        //   plugins: [lgVideo],
+        //   licenseKey: 'D4194FDD-48924833-A54AECA3-D6F8E646',
+        //   download: false,
+        //   youtubePlayerParams: {
+        //     modestbranding: 1,
+        //     showinfo: 0,
+        //     rel: 0
+        //   },
+        //   vimeoPlayerParams: {
+        //     byline: 0,
+        //     portrait: 0,
+        //     color: '6366f1'
+        //   }
+        // });
         /* eslint-enable no-undef */
       }
     }
