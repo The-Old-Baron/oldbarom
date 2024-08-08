@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { UserContext } from '../Login/UserContext';
 import TopMenu from '../../../components/TopMenu/MenuSuperior';
 import Footer from '../../../components/Footer/Footer';
 import Loading from '../../../components/Loading/Loading';
@@ -10,10 +11,12 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fab, fas);
 function Home() {
+  const { user } = useContext(UserContext);
+
   return (
     <>
       <Loading />
-      <TopMenu />
+      <TopMenu user={user} />
       <nav className="container mt-lg-4 pt-5" aria-label="breadcrumb">
         <ol className="breadcrumb mb-0 pt-5">
           <li className="breadcrumb-item active">

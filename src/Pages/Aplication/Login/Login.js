@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component, useContext } from 'react';
+import { Button } from 'react-bootstrap';
+import "./Login.css";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { signIn } from 'aws-amplify/auth';
@@ -8,20 +8,30 @@ import  { Amplify } from 'aws-amplify';
 import { Authenticator, View, Image, useTheme, Text, Heading, useAuthenticator } from '@aws-amplify/ui-react';
 import awsconfig from '../../../aws-exports';
 import '@aws-amplify/ui-react/styles.css';
+import Loading from '../../../components/Loading/Loading';
+import TemeSwitcher from '../../../components/ThemeSwitch/Switcher';
+import PropTypes from 'prop-types';
+import { UserContext } from './UserContext';
 
 Amplify.configure(awsconfig);
 library.add(fab);
+
 const components = {
     Header() {
         const { tokens } = useTheme();
 
-    return (
-      <View textAlign="center" padding={tokens.space.large}>
-        <Image
-          alt="Amplify logo"
-          src="https://docs.amplify.aws/assets/logo-dark.svg"
-        />
-      </View>
+      return (
+        <div>
+          <View textAlign="center" padding={tokens.space.large}>
+            <Image
+              alt="Amplify logo"
+              src="/logo512.png"  
+              width="100px"
+              height="100px"
+              textAlign="center"
+            />
+          </View>
+        </div>
     );
   },
 
@@ -29,9 +39,9 @@ const components = {
     const { tokens } = useTheme();
 
     return (
-      <View textAlign="center" padding={tokens.space.large}>
+      <View  padding={tokens.space.large}>
         <Text color={tokens.colors.neutral[80]}>
-          &copy; All Rights Reserved
+          &copy; All Rights Reserved 2023
         </Text>
       </View>
     );
@@ -45,6 +55,7 @@ const components = {
         <Heading
           padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
+          className="text-primary"
         >
           Sign in to your account
         </Heading>
@@ -103,7 +114,6 @@ const components = {
       const { tokens } = useTheme();
       return (
         <Heading
-          padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
         >
           Enter Information:
@@ -111,7 +121,7 @@ const components = {
       );
     },
     Footer() {
-      return <Text>Footer Information</Text>;
+      return <Text></Text>;
     },
   },
   SetupTotp: {
@@ -119,7 +129,6 @@ const components = {
       const { tokens } = useTheme();
       return (
         <Heading
-          padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
         >
           Enter Information:
@@ -135,7 +144,6 @@ const components = {
       const { tokens } = useTheme();
       return (
         <Heading
-          padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
         >
           Enter Information:
@@ -151,7 +159,6 @@ const components = {
       const { tokens } = useTheme();
       return (
         <Heading
-          padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
         >
           Enter Information:
@@ -167,7 +174,6 @@ const components = {
       const { tokens } = useTheme();
       return (
         <Heading
-          padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
         >
           Enter Information:
@@ -238,11 +244,19 @@ const formFields = {
   },
 };
 export default class Login extends Component {
+
+  static contextType = UserContext;
+
+  static propTypes = {
+    userHasAuthenticated: PropTypes.func.isRequired,
+  };
+
     constructor(props) {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            isAuthenticated: false
         };
     }
 
@@ -268,11 +282,58 @@ export default class Login extends Component {
             console.log(e.message);
         }
     }
+
+    userHasAuthenticated = authenticated => {
+        this.setState({ isAuthenticated: authenticated });
+    }
+    
     render() {
+      const {setUser}= this.context;
+      const childProps = {
+        isAuthenticated: this.state.isAuthenticated,
+        userHasAuthenticated: this.userHasAuthenticated,
+      };
+      if (this.props.user) {
+        this.props.navigate("/home");
+        return null; // Não renderiza nada se o usuário estiver logado
+      }
+      
         return (
-            <Authenticator formFields={formFields} components={components}>
-              {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-            </Authenticator>
-          );
+          <div>
+            <Loading />
+            <div className="page-wrapper">
+              <section className="position-relative h-100 pt-3">
+                <div className="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
+                  <div
+                    className="w-100 align-self-end pt-1 pt-md-4 "
+                    style={{ maxWidth: "526px" }}
+                  >
+                    <Authenticator components={components}>
+                      {({ signOut, user }) => {
+                        setUser(user);
+                        console.log("register", user);
+                        return (
+                          <main>
+                            <Heading level={1}>Hello {user.username}</Heading>
+                            <Button onClick={signOut}>Sign out</Button>
+                          </main>
+                      );
+                  }}
+                </Authenticator>
+                    
+                  </div>
+                </div>
+                <div
+                  className="position-absolute top-0 end-0 w-50 h-100 bg-position-center bg-repeat-0 bg-size-cover d-none d-xl-block"
+                  style={{ backgroundImage: "url(/img/account/signin-bg.jpg)" }}
+                ></div>
+              </section>
+            </div>
+            <div style={{ display: "none" }}>
+              <TemeSwitcher />
+            </div>
+          </div>
+        
+        );
     }
 }
