@@ -485,7 +485,7 @@ const Menu = () => {
                   Docs
                 </a>
                 <div className="dropdown-divider"></div>
-                <a href="#" className="dropdown-item">
+                <a href="#" className="dropdown-item" onClick={logout}>
                   Sign out
                 </a>
               </div>

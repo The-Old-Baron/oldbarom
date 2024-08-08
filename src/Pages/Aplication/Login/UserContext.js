@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import {signOut} from 'aws-amplify/auth';
 // Criação do contexto do usuário
 export const UserContext = createContext();
 
@@ -27,7 +27,13 @@ export const UserProvider = ({ children }) => {
 
   // Função para logout
   const logout = () => {
-    setUser(null);
+    try{
+      signOut();
+      setUser(null);
+    }
+    catch(e){
+      console.log(e);
+    }
   };
 
   return (

@@ -41,7 +41,7 @@ const components = {
     return (
       <View  padding={tokens.space.large}>
         <Text color={tokens.colors.neutral[80]}>
-          &copy; All Rights Reserved 2023
+          &copy; All Rights Reserved 2024
         </Text>
       </View>
     );
@@ -302,10 +302,10 @@ export default class Login extends Component {
           <div>
             <Loading />
             <div className="page-wrapper">
-              <section className="position-relative h-100 pt-3">
+              <section className="position-relative h-100">
                 <div className="container d-flex flex-wrap justify-content-center justify-content-xl-start h-100 pt-5">
                   <div
-                    className="w-100 align-self-end pt-1 pt-md-4 "
+                    className="w-100 align-self-end "
                     style={{ maxWidth: "526px" }}
                   >
                     <Authenticator components={components}>
