@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { Component, useContext } from 'react';
+import { Button } from 'react-bootstrap';
 import "./Login.css";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -12,7 +11,7 @@ import '@aws-amplify/ui-react/styles.css';
 import Loading from '../../../components/Loading/Loading';
 import TemeSwitcher from '../../../components/ThemeSwitch/Switcher';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
 Amplify.configure(awsconfig);
 library.add(fab);
@@ -21,14 +20,18 @@ const components = {
     Header() {
         const { tokens } = useTheme();
 
-    return (
-      <div>
-        <h1 className="text-center text-xl-start">Welcome Back</h1>
-        <Image
-          alt="Amplify logo"
-          src="https://docs.amplify.aws/assets/logo-dark.svg"
-          />
-          </div>
+      return (
+        <div>
+          <View textAlign="center" padding={tokens.space.large}>
+            <Image
+              alt="Amplify logo"
+              src="/logo512.png"  
+              width="100px"
+              height="100px"
+              textAlign="center"
+            />
+          </View>
+        </div>
     );
   },
 
@@ -38,7 +41,7 @@ const components = {
     return (
       <View  padding={tokens.space.large}>
         <Text color={tokens.colors.neutral[80]}>
-          &copy; All Rights Reserved
+          &copy; All Rights Reserved 2023
         </Text>
       </View>
     );
@@ -52,6 +55,7 @@ const components = {
         <Heading
           padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
+          className="text-primary"
         >
           Sign in to your account
         </Heading>
@@ -117,7 +121,7 @@ const components = {
       );
     },
     Footer() {
-      return <Text>Footer Information</Text>;
+      return <Text></Text>;
     },
   },
   SetupTotp: {
@@ -240,6 +244,9 @@ const formFields = {
   },
 };
 export default class Login extends Component {
+
+  static contextType = UserContext;
+
   static propTypes = {
     userHasAuthenticated: PropTypes.func.isRequired,
   };
@@ -279,21 +286,20 @@ export default class Login extends Component {
     userHasAuthenticated = authenticated => {
         this.setState({ isAuthenticated: authenticated });
     }
-
-    
     
     render() {
+      const {setUser}= this.context;
       const childProps = {
         isAuthenticated: this.state.isAuthenticated,
         userHasAuthenticated: this.userHasAuthenticated,
       };
-        if (this.props.user) {
-          this.props.navigate('/home');
-          return null; // Não renderiza nada se o usuário estiver logado
-        }
+      if (this.props.user) {
+        this.props.navigate("/home");
+        return null; // Não renderiza nada se o usuário estiver logado
+      }
+      
         return (
           <div>
-            
             <Loading />
             <div className="page-wrapper">
               <section className="position-relative h-100 pt-3">
@@ -302,51 +308,19 @@ export default class Login extends Component {
                     className="w-100 align-self-end pt-1 pt-md-4 "
                     style={{ maxWidth: "526px" }}
                   >
-                    <p className="text-center text-xl-start pb-3 mb-3">
-                      Don’t have an account yet?{" "}
-                      <a href="account-signup.html">Register here.</a>
-                    </p>
-                    <Authenticator >
-              {({ signOut, user }) => (
-                <main>
-                  <Heading level={1}>Hello {user.username}</Heading>
-                  <Button onClick={signOut}>Sign out</Button>
-                </main>
-              )}
-            </Authenticator>
-                    <a href="" className="btn btn-link btn-lg w-100">
-                      Forgot your password?
-                    </a>
-                    <hr className="my-4" />
-                    <h6 className="text-center mb-4">
-                      Or sign in with your social network
-                    </h6>
-                    <div className="row row-cols-1 row-cols-sm-2">
-                      <div className="col mb-3">
-                        <a
-                          href="#"
-                          className="btn btn-icon btn-secondary btn-google btn-lg w-100"
-                        >
-                          <FontAwesomeIcon
-                            icon={["fab", "google"]}
-                            className="fs-xl me-2"
-                          />
-                          Google
-                        </a>
-                      </div>
-                      <div className="col mb-3">
-                        <a
-                          href="#"
-                          className="btn btn-icon btn-secondary btn-facebook btn-lg w-100"
-                        >
-                          <FontAwesomeIcon
-                            icon="fa-brands fa-facebook"
-                            className="fs-xl me-2"
-                          />
-                          Facebook
-                        </a>
-                      </div>
-                    </div>
+                    <Authenticator components={components}>
+                      {({ signOut, user }) => {
+                        setUser(user);
+                        console.log("register", user);
+                        return (
+                          <main>
+                            <Heading level={1}>Hello {user.username}</Heading>
+                            <Button onClick={signOut}>Sign out</Button>
+                          </main>
+                      );
+                  }}
+                </Authenticator>
+                    
                   </div>
                 </div>
                 <div
@@ -357,8 +331,9 @@ export default class Login extends Component {
             </div>
             <div style={{ display: "none" }}>
               <TemeSwitcher />
-            </div> 
+            </div>
           </div>
+        
         );
     }
 }
