@@ -26,13 +26,14 @@ export const UserProvider = ({ children }) => {
   };
 
   // Função para logout
-  const logout = () => {
-    try{
-      signOut();
+  const logout = async () => {
+    try {
+      await signOut(); // Adicione await se signOut for uma função assíncrona
       setUser(null);
-    }
-    catch(e){
+      window.location.href = '/login';
+    } catch (e) {
       console.log(e);
+      alert.error('Erro ao realizar logout');
     }
   };
 

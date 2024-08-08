@@ -30,12 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route
               path="/aplications"
-              element={
-                <ProtectedRoute
-                  isAuthenticated={isAuthenticated}
-                  element={ApplicationHome}
-                />
-              }
+              element={<ApplicationHome />}
             />
             <Route
               path="/login"
