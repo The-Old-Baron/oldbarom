@@ -15,6 +15,12 @@
       "auth": {
         "oldbarome209d2b3": {},
         "userPoolGroups": {}
+      },
+      "function": {
+        "getall": {},
+        "getfavorites": {},
+        "AddFavorite": {},
+        "RemoveFavorite": {}
       }
     }
   }
