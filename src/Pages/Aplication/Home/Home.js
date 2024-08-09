@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { UserContext } from '../Login/UserContext';
+import React, { useEffect, useState } from 'react';
+
 import Menu from '../../../components/TopMenu/MenuSuperior';
 import Footer from '../../../components/Footer/Footer';
 import Loading from '../../../components/Loading/Loading';
@@ -10,8 +10,18 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fab, fas);
-function Home() {
+const Home = () => {
+  const [projects, setProjects] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try{
+        const response = await API.get("")
+      }
+  }, []);
+  
   return (
     <>
       <Loading />

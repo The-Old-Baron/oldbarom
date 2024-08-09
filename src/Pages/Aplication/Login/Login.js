@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { Button } from 'react-bootstrap';
-import { signIn } from 'aws-amplify/auth';
 import  { Amplify } from 'aws-amplify';
 import { Authenticator, View, Image, useTheme, Text, Heading, useAuthenticator } from '@aws-amplify/ui-react';
 
@@ -20,7 +19,6 @@ import TemeSwitcher from '../../../components/ThemeSwitch/Switcher';
 
 import awsconfig from '../../../aws-exports';
 
-import aplications from '../Home/Home';
 Amplify.configure(awsconfig);
 library.add(fab);
 
@@ -251,10 +249,11 @@ export default class Login extends Component {
                     setUser(user);
                     this.handleSubmit();
                     return (
-                      <main>
-                        <Heading level={1}>Hello {user.username}</Heading>
-                        <Button onClick={signOut}>Sign out</Button>
-                      </main>
+                      <div id="loader-wrapper">
+                        <div id="loader"></div>
+                        <div class="loader-section section-left"></div>
+                        <div class="loader-section section-right"></div>
+                      </div>
                     );
                   }}
                 </Authenticator>
